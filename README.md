@@ -5,7 +5,7 @@ This ansible-playbook is used to deploy a LEMP environment on CentOS7;
 * CentOS7 minimal install;
 
 ## Coverage
-* install nginx repository and certify the latest package was installed (role: nginx, tag: nginx)
+* install nginx repository and certify the latest package was installed
 * install mariadb (mysql)
 ## Configuration
 * Some confs can be changed at inventory/hosts
