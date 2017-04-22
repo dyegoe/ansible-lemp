@@ -1,0 +1,14 @@
+[hosts]
+centos.local
+
+## Vars that you need to change ##
+[hosts:vars]
+## Here you can set a password if you don't have key pairs;
+## change the username that will be used and
+## if you need to become a superuser before start the playbook
+ansible_user=changeme
+#ansible_password=
+ansible_become=yes
+ansible_become_method=sudo
+ansible_become_user=root
+#ansible_become_password=
