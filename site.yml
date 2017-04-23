@@ -2,3 +2,4 @@
   roles:
     - check_os
     - nginx
+    - mariadb
