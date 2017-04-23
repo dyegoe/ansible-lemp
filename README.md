@@ -1,8 +1,8 @@
 # Ansible LEMP
-This ansible-playbook is used to deploy a LEMP environment on CentOS7;
+This ansible-playbook is used to deploy a LEMP environment on CentOS7/RetHat7;
 
 ## Requirements
-* CentOS7 minimal install;
+* CentOS7/RetHat7 minimal install;
 
 ## Coverage
 * install nginx repository and certify the latest package was installed
