@@ -1,6 +1,7 @@
 - hosts: hosts
   roles:
     - check_os
-    - nginx
+    - { role: nginx, nginx_task: 'install' }
     - mariadb
     - php
+    - { role: nginx, nginx_task: 'configure' }
