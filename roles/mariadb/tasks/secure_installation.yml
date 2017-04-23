@@ -27,7 +27,7 @@
 - name: remove test database
   command: 'mysql -ne "{{ item }}"'
   with_items:
-    - "DROP DATABASE test"
+    - "DROP DATABASE IF EXISTS test"
   changed_when: false
   ignore_errors: true
 
