@@ -20,4 +20,4 @@ nginx={'repo_file': '/etc/yum.repos.d/nginx.repo'}
 mariadb={'version': '10.1', 'root_password': 'changeme', 'repo_file': '/etc/yum.repos.d/mariadb.repo'}
 
 ## php configuration
-php={'packages': "{'php71u-fpm', 'php71u-fpm-nginx', 'php71u-mysqlnd', 'php71u-mbstring', 'php71u-xml'}"}
+php={'conf': '/etc/php-fpm.d/www.conf', 'packages': "{'php71u-fpm', 'php71u-fpm-nginx', 'php71u-mysqlnd', 'php71u-mbstring', 'php71u-xml'}"}
