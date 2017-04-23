@@ -1,0 +1,29 @@
+- name: unset {{ php['conf'] }} listen port
+  lineinfile:
+    dest: "{{ php['conf'] }}"
+    backrefs: yes
+    state: present
+    regexp: "^(;|)(listen = 127.0.0.1:9000)$"
+    line: ";\\2"
+
+- name: set {{ php['conf'] }} listen socket
+  lineinfile:
+    dest: "{{ php['conf'] }}"
+    backrefs: yes
+    state: present
+    regexp: "^(;|)(listen = /run/php-fpm/www.sock)$"
+    line: "\\2"
+
+- name: set {{ php['conf'] }} listen.acl_users
+  lineinfile:
+    dest: "{{ php['conf'] }}"
+    backrefs: yes
+    state: present
+    regexp: "^(;|)(listen.acl_users = nginx)$"
+    line: "\\2"
+
+- name: enable and start php-fpm service
+  systemd:
+    state: restarted
+    enabled: yes
+    name: php-fpm
