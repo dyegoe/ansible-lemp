@@ -1,22 +1,22 @@
-- name: unset {{ php['conf'] }} listen port
+- name: unset {{ php['conf_file'] }} listen port
   lineinfile:
-    dest: "{{ php['conf'] }}"
+    dest: "{{ php['conf_file'] }}"
     backrefs: yes
     state: present
     regexp: "^(;|)(listen = 127.0.0.1:9000)$"
     line: ";\\2"
 
-- name: set {{ php['conf'] }} listen socket
+- name: set {{ php['conf_file'] }} listen socket
   lineinfile:
-    dest: "{{ php['conf'] }}"
+    dest: "{{ php['conf_file'] }}"
     backrefs: yes
     state: present
     regexp: "^(;|)(listen = /run/php-fpm/www.sock)$"
     line: "\\2"
 
-- name: set {{ php['conf'] }} listen.acl_users
+- name: set {{ php['conf_file'] }} listen.acl_users
   lineinfile:
-    dest: "{{ php['conf'] }}"
+    dest: "{{ php['conf_file'] }}"
     backrefs: yes
     state: present
     regexp: "^(;|)(listen.acl_users = nginx)$"
