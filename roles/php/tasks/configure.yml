@@ -22,6 +22,30 @@
     regexp: "^(;|)(listen.acl_users = nginx)$"
     line: "\\2"
 
+- name: set {{ php['conf_file'] }} cgi.fix_pathinfo
+  lineinfile:
+    dest: "{{ php['conf_file'] }}"
+    backrefs: yes
+    state: present
+    regexp: "^(;|)(cgi.fix_pathinfo = 0)$"
+    line: "\\2"
+
+- name: unset {{ php['nginx_conf_file'] }} server tcp
+  lineinfile:
+    dest: "{{ php['nginx_conf_file'] }}"
+    backrefs: yes
+    state: present
+    regexp: "^( *)(#|)(server *)(127.0.0.1:9000;)$"
+    line: "\\1#\\3\\4"
+
+- name: set {{ php['nginx_conf_file'] }} server socket
+  lineinfile:
+    dest: "{{ php['nginx_conf_file'] }}"
+    backrefs: yes
+    state: present
+    regexp: "^( *)(#|)(server *)(unix:/run/php-fpm/www.sock;)$"
+    line: "\\1#\\3\\4"
+
 - name: enable and start php-fpm service
   systemd:
     state: restarted
