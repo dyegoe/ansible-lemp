@@ -5,8 +5,9 @@ This ansible-playbook is used to deploy a LEMP environment on CentOS7/RetHat7;
 * CentOS7/RetHat7 minimal install;
 
 ## Coverage
-* install nginx repository and certify the latest package was installed
-* install mariadb (mysql)
+* install nginx repository (Provided by Nginx) and certify the latest package was installed
+* install mariadb repository (Provided by MariaDB) and certify the latest package was installed
+* install php repostiroy (Provided by Remi)
 ## Configuration
 * Some confs can be changed at inventory/hosts
 * At ansible.cfg has only the local inventory conf;

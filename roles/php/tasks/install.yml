@@ -10,16 +10,13 @@
     state: present
   when: ansible_distribution == 'RedHat'
 
-- name: install epel rpm key
-  command: 'rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}'
+- name: enable {{ php['enable_repo'] }} repository
+  command: "yum-config-manager --enable {{ php['enable_repo'] }}"
 
-- name: install ius repository
+- name: install REMI repository
   package:
-    name: "https://{{ gathered_distribution }}{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
+    name: "http://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
     state: present
-
-- name: install ius rpm key
-  command: 'rpm --import /etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY'
 
 - name: install php packages
   package:
