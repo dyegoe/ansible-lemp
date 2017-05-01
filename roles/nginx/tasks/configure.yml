@@ -1,4 +1,4 @@
-- name: [configure] enable and start nginx service
+- name: "[configure] enable and start nginx service"
   systemd:
     state: restarted
     enabled: yes

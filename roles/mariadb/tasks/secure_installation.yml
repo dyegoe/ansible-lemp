@@ -1,37 +1,37 @@
-- name: [secure_installation] set root password and flush privileges
+- name: "[secure_installation] set root password and flush privileges"
   command: 'mysql -ne "{{ item }}"'
   with_items:
     - "UPDATE mysql.user SET password=PASSWORD('{{ mariadb['root_password'] }}') WHERE User='root'; FLUSH PRIVILEGES;"
   changed_when: false
   ignore_errors: true
 
-- name: [secure_installation] copy .my.cnf to root dir
+- name: "[secure_installation] copy .my.cnf to root dir"
   template:
     src: root.my.cnf.j2
     dest: /root/.my.cnf
 
-- name: [secure_installation] remove anonymous users
+- name: "[secure_installation] remove anonymous users"
   command: 'mysql -ne "{{ item }}"'
   with_items:
     - "DELETE FROM mysql.user WHERE User=''"
   changed_when: false
   ignore_errors: true
 
-- name: [secure_installation] disallow root login remotely
+- name: "[secure_installation] disallow root login remotely"
   command: 'mysql -ne "{{ item }}"'
   with_items:
     - "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')"
   changed_when: false
   ignore_errors: true
 
-- name: [secure_installation] remove test database
+- name: "[secure_installation] remove test database"
   command: 'mysql -ne "{{ item }}"'
   with_items:
     - "DROP DATABASE IF EXISTS test"
   changed_when: false
   ignore_errors: true
 
-- name: [secure_installation] remove test dabases from mysql.db
+- name: "[secure_installation] remove test dabases from mysql.db"
   command: 'mysql -ne "{{ item }}"'
   with_items:
    - "DELETE FROM mysql.db WHERE Db like 'test%'"
