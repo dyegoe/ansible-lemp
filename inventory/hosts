@@ -1,5 +1,5 @@
 [hosts]
-centos.local
+centos.localdomain
 
 ## Vars that you need to change ##
 [hosts:vars]
