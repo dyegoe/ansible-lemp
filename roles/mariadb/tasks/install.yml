@@ -1,9 +1,9 @@
-- name: copy mariadb.repo
+- name: [install] copy mariadb.repo
   template:
     src: mariadb.repo.j2
     dest: "{{ mariadb['repo_file'] }}"
 
-- name: install mariadb packages
+- name: [install] install mariadb packages
   package:
     name: "{{ item }}"
     state: latest
@@ -11,7 +11,7 @@
     - mariadb-server
     - mariadb
 
-- name: enable and start mariadb service
+- name: [install] enable and start mariadb service
   systemd:
     state: restarted
     enabled: yes
