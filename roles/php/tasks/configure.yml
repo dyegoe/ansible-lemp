@@ -27,8 +27,8 @@
     dest: "{{ php['ini_file'] }}"
     backrefs: yes
     state: present
-    regexp: "^(;|)(cgi.fix_pathinfo=)(.*)$"
-    line: "\\20"
+    regexp: "^(;|)(cgi.fix_pathinfo)(=.*)$"
+    line: "\\2=0"
 
 - name: "[configure] unset {{ php['nginx_conf_file'] }} server tcp"
   lineinfile:
