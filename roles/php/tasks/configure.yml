@@ -1,34 +1,44 @@
-- name: "[configure] unset {{ php['conf_file'] }} listen port"
-  lineinfile:
-    dest: "{{ php['conf_file'] }}"
-    backrefs: yes
-    state: present
-    regexp: "^(;|)(listen = 127.0.0.1:9000)$"
-    line: ";\\2"
+- name: "[configure] set {{ php['conf_file'] }} user"
+  ini_file:
+    path: "{{ php['conf_file'] }}"
+    section: www
+    option: user
+    value: nginx
+
+- name: "[configure] set {{ php['conf_file'] }} group"
+  ini_file:
+    path: "{{ php['conf_file'] }}"
+    section: www
+    option: group
+    value: nginx
 
 - name: "[configure] set {{ php['conf_file'] }} listen socket"
-  lineinfile:
-    dest: "{{ php['conf_file'] }}"
-    backrefs: yes
-    state: present
-    regexp: "^(;|)(listen = /run/php-fpm/www.sock)$"
-    line: "\\2"
+  ini_file:
+    path: "{{ php['conf_file'] }}"
+    section: www
+    option: listen
+    value: /run/php-fpm/www.sock
 
 - name: "[configure] set {{ php['conf_file'] }} listen.acl_users"
-  lineinfile:
-    dest: "{{ php['conf_file'] }}"
-    backrefs: yes
-    state: present
-    regexp: "^(;|)(listen.acl_users = nginx)$"
-    line: "\\2"
+  ini_file:
+    path: "{{ php['conf_file'] }}"
+    section: www
+    option: listen.acl_users
+    value: nginx
 
 - name: "[configure] set {{ php['ini_file'] }} cgi.fix_pathinfo"
-  lineinfile:
-    dest: "{{ php['ini_file'] }}"
-    backrefs: yes
-    state: present
-    regexp: "^(;|)(cgi.fix_pathinfo)(=.*)$"
-    line: "\\2=0"
+  ini_file:
+    path: "{{ php['ini_file'] }}"
+    section: PHP
+    option: cgi.fix_pathinfo
+    value: 0
+
+- name: "[configure] set {{ php['ini_file'] }} date.timezone"
+  ini_file:
+    path: "{{ php['ini_file'] }}"
+    section: Date
+    option: date.timezone
+    value: "{{ php['timezone'] }}"
 
 - name: "[configure] copy php.conf"
   template:
