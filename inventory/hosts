@@ -20,4 +20,4 @@ nginx={'repo_file': '/etc/yum.repos.d/nginx.repo'}
 mariadb={'version': '10.1', 'root_password': 'changeme', 'repo_file': '/etc/yum.repos.d/mariadb.repo'}
 
 ## php configuration
-php={ 'enable_repo': 'remi-php71', 'packages': "{'php-fpm', 'php-mysqlnd', 'php-mbstring', 'php-xml'}", 'ini_file':'/etc/php.ini', 'conf_file': '/etc/php-fpm.d/www.conf', 'nginx_conf': "{ 'php_file': '/etc/nginx/conf.d/php.conf', 'php-fpm_file': '/etc/nginx/conf.d/php-fpm.conf' }"}
+php={ 'enable_repo': 'remi-php71', 'packages': "{'php-fpm', 'php-mysqlnd', 'php-mbstring', 'php-xml'}", 'ini_file':'/etc/php.ini', 'conf_file': '/etc/php-fpm.d/www.conf', 'nginx_conf': { 'php_file': '/etc/nginx/conf.d/php.conf', 'php-fpm_file': '/etc/nginx/conf.d/php-fpm.conf' } }
