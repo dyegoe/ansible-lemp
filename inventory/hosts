@@ -14,7 +14,7 @@ ansible_become_user=root
 #ansible_become_password=
 
 ## nginx configuration
-nginx={'repo_file': '/etc/yum.repos.d/nginx.repo'}
+nginx={'base_dir': '/etc/nginx', 'conf_file': '/etc/nginx/nginx.conf', 'repo_file': '/etc/yum.repos.d/nginx.repo'}
 
 ## mariadb configuration
 mariadb={'version': '10.1', 'root_password': 'changeme', 'repo_file': '/etc/yum.repos.d/mariadb.repo'}
