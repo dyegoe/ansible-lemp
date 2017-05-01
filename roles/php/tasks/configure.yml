@@ -22,13 +22,13 @@
     regexp: "^(;|)(listen.acl_users = nginx)$"
     line: "\\2"
 
-- name: set {{ php['conf_file'] }} cgi.fix_pathinfo
+- name: set {{ php['ini_file'] }} cgi.fix_pathinfo
   lineinfile:
-    dest: "{{ php['conf_file'] }}"
+    dest: "{{ php['ini_file'] }}"
     backrefs: yes
     state: present
-    regexp: "^(;|)(cgi.fix_pathinfo = 0)$"
-    line: "\\2"
+    regexp: "^(;|)(cgi.fix_pathinfo=)(1)$"
+    line: "\\20"
 
 - name: unset {{ php['nginx_conf_file'] }} server tcp
   lineinfile:
