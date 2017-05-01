@@ -18,7 +18,7 @@
     name: "https://{{ gathered_distribution }}{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
     state: present
 
-- name: install epel rpm key
+- name: install ius rpm key
   command: 'rpm --import /etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY'
 
 - name: install php packages
