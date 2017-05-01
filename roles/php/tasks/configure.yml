@@ -30,21 +30,15 @@
     regexp: "^(;|)(cgi.fix_pathinfo)(=.*)$"
     line: "\\2=0"
 
-- name: "[configure] unset {{ php['nginx_conf_file'] }} server tcp"
-  lineinfile:
-    dest: "{{ php['nginx_conf_file'] }}"
-    backrefs: yes
-    state: present
-    regexp: "^( *)(#|)(server *)(127.0.0.1:9000;)$"
-    line: "\\1#\\3\\4"
+- name: "[configure] copy php.conf"
+  template:
+    src: php.conf.j2
+    dest: "{{ php['nginx_conf']['php_file'] }}"
 
-- name: "[configure] set {{ php['nginx_conf_file'] }} server socket"
-  lineinfile:
-    dest: "{{ php['nginx_conf_file'] }}"
-    backrefs: yes
-    state: present
-    regexp: "^( *)(#|)(server *)(unix:/run/php-fpm/www.sock;)$"
-    line: "\\1#\\3\\4"
+- name: "[configure] copy php-fpm.conf"
+  template:
+    src: php-fpm.conf.j2
+    dest: "{{ php['nginx_conf']['php-fpm_file'] }}"
 
 - name: "[configure] enable and start php-fpm service"
   systemd:
