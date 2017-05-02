@@ -40,6 +40,12 @@
     option: date.timezone
     value: "{{ php['timezone'] }}"
 
+- name: "[configure] creating {{ nginx['base_dir'] }}/default.d/ directory"
+  file:
+    path: "{{ nginx['base_dir'] }}/default.d/"
+    state: directory
+    mode: 0755
+
 - name: "[configure] copy php.conf"
   template:
     src: php.conf.j2
