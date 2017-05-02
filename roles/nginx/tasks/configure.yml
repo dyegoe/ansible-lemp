@@ -1,0 +1,37 @@
+- name: "[configure] creating {{ nginx['base_dir'] }}/sites-*/ directory"
+  file:
+    path: "{{ nginx['base_dir'] }}/{{ item }}/"
+    state: directory
+    mode: 0755
+  with_items:
+    - sites-available
+    - sites-enabled
+
+- name: "[configure] remove default file"
+  file:
+    path: "{{ nginx['base_dir'] }}/conf.d/default.conf"
+    state: absent
+
+- name: "[configure] copy nginx.conf"
+  template:
+    src: nginx.conf.j2
+    dest: "{{ nginx['base_dir'] }}/nginx.conf"
+
+- name: "[configure] copy default.conf"
+  template:
+    src: default.conf.j2
+    dest: "{{ nginx['base_dir'] }}/sites-available/00_default"
+
+- name: "[configure] symlink sites-available to sites-enabled"
+  file:
+    src: "{{ nginx['base_dir'] }}/sites-available/{{ item }}"
+    dest: "{{ nginx['base_dir'] }}/sites-enabled/{{ item }}"
+    state: "link"
+  with_items:
+    - "00_default"
+
+- name: "[configure] enable and start nginx service"
+  systemd:
+    state: restarted
+    enabled: yes
+    name: nginx

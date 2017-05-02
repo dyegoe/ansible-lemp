@@ -1,0 +1,63 @@
+- name: "[configure] set {{ php['conf_file'] }} user"
+  ini_file:
+    path: "{{ php['conf_file'] }}"
+    section: www
+    option: user
+    value: nginx
+
+- name: "[configure] set {{ php['conf_file'] }} group"
+  ini_file:
+    path: "{{ php['conf_file'] }}"
+    section: www
+    option: group
+    value: nginx
+
+- name: "[configure] set {{ php['conf_file'] }} listen socket"
+  ini_file:
+    path: "{{ php['conf_file'] }}"
+    section: www
+    option: listen
+    value: /run/php-fpm/www.sock
+
+- name: "[configure] set {{ php['conf_file'] }} listen.acl_users"
+  ini_file:
+    path: "{{ php['conf_file'] }}"
+    section: www
+    option: listen.acl_users
+    value: nginx
+
+- name: "[configure] set {{ php['ini_file'] }} cgi.fix_pathinfo"
+  ini_file:
+    path: "{{ php['ini_file'] }}"
+    section: PHP
+    option: cgi.fix_pathinfo
+    value: 0
+
+- name: "[configure] set {{ php['ini_file'] }} date.timezone"
+  ini_file:
+    path: "{{ php['ini_file'] }}"
+    section: Date
+    option: date.timezone
+    value: "{{ php['timezone'] }}"
+
+- name: "[configure] creating {{ nginx['base_dir'] }}/default.d/ directory"
+  file:
+    path: "{{ nginx['base_dir'] }}/default.d/"
+    state: directory
+    mode: 0755
+
+- name: "[configure] copy php.conf"
+  template:
+    src: php.conf.j2
+    dest: "{{ php['nginx_conf']['php_file'] }}"
+
+- name: "[configure] copy php-fpm.conf"
+  template:
+    src: php-fpm.conf.j2
+    dest: "{{ php['nginx_conf']['php-fpm_file'] }}"
+
+- name: "[configure] enable and start php-fpm service"
+  systemd:
+    state: restarted
+    enabled: yes
+    name: php-fpm

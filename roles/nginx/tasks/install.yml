@@ -1,0 +1,15 @@
+- name: "[install] copy nginx.repo"
+  template:
+    src: nginx.repo.j2
+    dest: "{{ nginx['repo_file'] }}"
+
+- name: "[install] install nginx packages"
+  package:
+    name: "nginx"
+    state: latest
+
+- name: "[install] enable and start nginx service"
+  systemd:
+    state: restarted
+    enabled: yes
+    name: nginx

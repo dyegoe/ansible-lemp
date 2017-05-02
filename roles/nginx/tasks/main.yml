@@ -1,0 +1,2 @@
+- { include: install.yml, when: nginx_task == 'install' }
+- { include: configure.yml, when: nginx_task == 'configure' }
